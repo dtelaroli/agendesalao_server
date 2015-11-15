@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :schedules
   resources :profiles
   mount_devise_token_auth_for 'Owner', at: 'owner_auth'
 

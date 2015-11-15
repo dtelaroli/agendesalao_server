@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  day: MyString
+  start: 2015-11-15 14:49:18
+  end: 2015-11-15 14:49:18
+  startLunch: 2015-11-15 14:49:18
+  endLunch: 2015-11-15 14:49:18
+  startBreak: 2015-11-15 14:49:18
+  endBreak: 2015-11-15 14:49:18
+  owner_id: 
+
+two:
+  day: MyString
+  start: 2015-11-15 14:49:18
+  end: 2015-11-15 14:49:18
+  startLunch: 2015-11-15 14:49:18
+  endLunch: 2015-11-15 14:49:18
+  startBreak: 2015-11-15 14:49:18
+  endBreak: 2015-11-15 14:49:18
+  owner_id: 

@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Day:</strong>
+  <%= @schedule.day %>
+</p>
+
+<p>
+  <strong>Start:</strong>
+  <%= @schedule.start %>
+</p>
+
+<p>
+  <strong>End:</strong>
+  <%= @schedule.end %>
+</p>
+
+<p>
+  <strong>Startlunch:</strong>
+  <%= @schedule.startLunch %>
+</p>
+
+<p>
+  <strong>Endlunch:</strong>
+  <%= @schedule.endLunch %>
+</p>
+
+<p>
+  <strong>Startbreak:</strong>
+  <%= @schedule.startBreak %>
+</p>
+
+<p>
+  <strong>Endbreak:</strong>
+  <%= @schedule.endBreak %>
+</p>
+
+<p>
+  <strong>Owner:</strong>
+  <%= @schedule.owner %>
+</p>
+
+<%= link_to 'Edit', edit_schedule_path(@schedule) %> |
+<%= link_to 'Back', schedules_path %>
