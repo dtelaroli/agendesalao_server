@@ -4,4 +4,6 @@ class Owner < ActiveRecord::Base
           :recoverable, :rememberable, :trackable, :validatable,
           :confirmable, :omniauthable
   include DeviseTokenAuth::Concerns::User
+
+  belongs_to :profile
 end

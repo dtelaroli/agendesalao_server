@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151114001939) do
+ActiveRecord::Schema.define(version: 20151115134837) do
 
   create_table "owners", force: :cascade do |t|
     t.string   "provider",               default: "email", null: false
@@ -36,11 +36,29 @@ ActiveRecord::Schema.define(version: 20151114001939) do
     t.text     "tokens"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "profile_id"
   end
 
   add_index "owners", ["email"], name: "index_owners_on_email"
+  add_index "owners", ["profile_id"], name: "index_owners_on_profile_id"
   add_index "owners", ["reset_password_token"], name: "index_owners_on_reset_password_token", unique: true
   add_index "owners", ["uid", "provider"], name: "index_owners_on_uid_and_provider", unique: true
+
+  create_table "profiles", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "cpf"
+    t.string   "mobile"
+    t.string   "zipcode"
+    t.string   "address"
+    t.string   "number"
+    t.string   "complement"
+    t.string   "neighborhood"
+    t.string   "city"
+    t.string   "state"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "provider",               default: "email", null: false
