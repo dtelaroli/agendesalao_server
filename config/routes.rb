@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
 
-  resources :schedules
-  resources :profiles
-  mount_devise_token_auth_for 'Owner', at: 'owner_auth'
+  mount_devise_token_auth_for 'Owner', at: 'owner/auth'
+
+  namespace :owner do
+    resources :schedules
+    resources :profiles
+  end
+
 
   mount_devise_token_auth_for 'User', at: 'auth'
-
-  resources :owners
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

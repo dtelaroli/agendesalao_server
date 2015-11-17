@@ -1,4 +1,4 @@
-class ProfilesController < OwnerController
+class Owner::ProfilesController < OwnerController
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
 
   # GET /profiles
@@ -24,10 +24,10 @@ class ProfilesController < OwnerController
   # POST /profiles
   # POST /profiles.json
   def create
-    @profile = Profile.find_or_initialize_by(profile_params)
+    @profile = Profile.find_or_initialize_by(id: params[:user][:profile_id])
 
     respond_to do |format|
-      if @profile.update
+      if @profile.update(profile_params)
         current_owner.update(profile: @profile)
         format.html { redirect_to @profile, notice: 'Profile was successfully created.' }
         format.json { render :show, status: :created, location: @profile }

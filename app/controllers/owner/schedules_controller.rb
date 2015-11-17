@@ -1,4 +1,4 @@
-class SchedulesController < OwnerController
+class Owner::SchedulesController < OwnerController
   before_action :set_schedule, only: [:show, :edit, :update, :destroy]
 
   # GET /schedules
