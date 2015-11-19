@@ -4,7 +4,7 @@ class Owner::ProfilesController < OwnerController
   # GET /profiles
   # GET /profiles.json
   def index
-    @profiles = Profile.all
+    @profiles = Profile.where('lower(name) like ?', "%#{params[:q].to_s.downcase}%")
   end
 
   # GET /profiles/1
