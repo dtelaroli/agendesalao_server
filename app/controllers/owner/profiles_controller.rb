@@ -27,8 +27,10 @@ class Owner::ProfilesController < OwnerController
     @profile = Profile.find_or_initialize_by(id: current_owner.profile_id)
 
     respond_to do |format|
+      owner = profile_params[:owner_attributes].tap {|p| p[profile: @profile]}
+      # current_owner.update(owner)
+
       if @profile.update(profile_params)
-        current_owner.update(profile: @profile)
         format.html { redirect_to @profile, notice: 'Profile was successfully created.' }
         format.json { render :show, status: :created, location: [:owner, @profile] }
       else
@@ -70,7 +72,8 @@ class Owner::ProfilesController < OwnerController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def profile_params
-      params.permit(:id, :name, :description, :cpf, :services, :mobile, :zipcode, :address, :number, :complement, :neighborhood, :city, :state, 
-        owner_attributes: [:id, :email, :mon, :tue, :wed, :thu, :fri, :sat, :sun, :start, :end])
+      params.permit(:id, :name, :description, :cpf, :services, :mobile, :zipcode, :address, :number, :complement, :neighborhood, :city, :state,
+        owner_attributes: [:email, :mon, :tue, :wed, :thu, :fri, :sat, :sun, :start, :end],
+        owner: [:email, :mon, :tue, :wed, :thu, :fri, :sat, :sun, :start, :end])
     end
 end

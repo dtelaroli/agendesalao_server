@@ -1,5 +1,5 @@
 class Profile < ActiveRecord::Base
-  has_one :owner, autosave: true
+  has_one :owner
 
   accepts_nested_attributes_for :owner
 
