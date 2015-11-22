@@ -1,4 +1,4 @@
-class OwnerController < ActionController::Base
+class OwnerController < ApplicationController
   include DeviseTokenAuth::Concerns::SetUserByToken
   before_action :authenticate_owner!
 end

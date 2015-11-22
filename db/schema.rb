@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151115164918) do
+ActiveRecord::Schema.define(version: 20151122194800) do
 
   create_table "owners", force: :cascade do |t|
     t.string   "provider",               default: "email", null: false
@@ -37,6 +37,15 @@ ActiveRecord::Schema.define(version: 20151115164918) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "profile_id"
+    t.boolean  "mon"
+    t.boolean  "tue"
+    t.boolean  "wed"
+    t.boolean  "thu"
+    t.boolean  "fri"
+    t.boolean  "sat"
+    t.boolean  "sun"
+    t.time     "start"
+    t.time     "end"
   end
 
   add_index "owners", ["email"], name: "index_owners_on_email"
@@ -59,21 +68,6 @@ ActiveRecord::Schema.define(version: 20151115164918) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
-
-  create_table "schedules", force: :cascade do |t|
-    t.string   "day"
-    t.time     "start"
-    t.time     "end"
-    t.time     "startLunch"
-    t.time     "endLunch"
-    t.time     "startBreak"
-    t.time     "endBreak"
-    t.integer  "owner_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "schedules", ["owner_id"], name: "index_schedules_on_owner_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "provider",               default: "email", null: false

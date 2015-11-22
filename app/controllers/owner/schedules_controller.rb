@@ -24,17 +24,28 @@ class Owner::SchedulesController < OwnerController
   # POST /schedules
   # POST /schedules.json
   def create
-    @schedule = Schedule.new(schedule_params)
+    raise 'Items is empty' if params[:items] == nil
+    
+    saved = Array.new
+    ActiveRecord::Base.transaction do
+      params[:items].each do |item|
+        @schedule = Schedule.new(schedule_params(item))
 
-    respond_to do |format|
-      if @schedule.save
-        format.html { redirect_to @schedule, notice: 'Schedule was successfully created.' }
-        format.json { render :show, status: :created, location: @schedule }
-      else
-        format.html { render :new }
-        format.json { render json: @schedule.errors, status: :unprocessable_entity }
+        if @schedule.save
+          saved << @schedule
+        else
+          respond_to do |format|
+            format.html { render :new }
+            format.json { render json: @schedule.errors, status: :unprocessable_entity }
+          end
+        end
       end
     end
+
+    respond_to do |format|
+      format.html { redirect_to [:owner, @schedule], notice: 'Schedule was successfully created.' }
+      format.json { render json: saved, status: :created }
+    end if saved.any?
   end
 
   # PATCH/PUT /schedules/1
@@ -42,8 +53,8 @@ class Owner::SchedulesController < OwnerController
   def update
     respond_to do |format|
       if @schedule.update(schedule_params)
-        format.html { redirect_to @schedule, notice: 'Schedule was successfully updated.' }
-        format.json { render :show, status: :ok, location: @schedule }
+        format.html { redirect_to [:owner, @schedule], notice: 'Schedule was successfully updated.' }
+        format.json { render :show, status: :ok, location: [:owner, @schedule] }
       else
         format.html { render :edit }
         format.json { render json: @schedule.errors, status: :unprocessable_entity }
@@ -56,7 +67,7 @@ class Owner::SchedulesController < OwnerController
   def destroy
     @schedule.destroy
     respond_to do |format|
-      format.html { redirect_to schedules_url, notice: 'Schedule was successfully destroyed.' }
+      format.html { redirect_to owner_schedules_url, notice: 'Schedule was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -68,8 +79,8 @@ class Owner::SchedulesController < OwnerController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def schedule_params
-      params.permit(:day, :start, :end, :startLunch, :endLunch, :startBreak, :endBreak, :owner_id)
+    def schedule_params(item)
+      (item || params).permit(:day, :start, :end, :startLunch, :endLunch, :startBreak, :endBreak)
         .tap { |s| s[:owner] = current_owner }
     end
 end
