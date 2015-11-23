@@ -37,13 +37,13 @@ ActiveRecord::Schema.define(version: 20151122194800) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "profile_id"
-    t.boolean  "mon"
-    t.boolean  "tue"
-    t.boolean  "wed"
-    t.boolean  "thu"
-    t.boolean  "fri"
-    t.boolean  "sat"
-    t.boolean  "sun"
+    t.boolean  "mon",                    default: false
+    t.boolean  "tue",                    default: false
+    t.boolean  "wed",                    default: false
+    t.boolean  "thu",                    default: false
+    t.boolean  "fri",                    default: false
+    t.boolean  "sat",                    default: false
+    t.boolean  "sun",                    default: false
     t.time     "start"
     t.time     "end"
   end

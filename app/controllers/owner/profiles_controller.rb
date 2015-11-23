@@ -27,15 +27,15 @@ class Owner::ProfilesController < OwnerController
     @profile = Profile.find_or_initialize_by(id: current_owner.profile_id)
 
     respond_to do |format|
-      owner = profile_params[:owner_attributes].tap {|p| p[profile: @profile]}
-      # current_owner.update(owner)
-
-      if @profile.update(profile_params)
-        format.html { redirect_to @profile, notice: 'Profile was successfully created.' }
-        format.json { render :show, status: :created, location: [:owner, @profile] }
-      else
-        format.html { render :new }
-        format.json { render json: @profile.errors, status: :unprocessable_entity }
+      ActiveRecord::Base.transaction do
+        if @profile.update(profile_params)
+          current_owner.update(owner_params.tap {|p| p[profile_id: @profile.id]})
+          format.html { redirect_to @profile, notice: 'Profile was successfully created.' }
+          format.json { render :show, status: :created, location: [:owner, @profile] }
+        else
+          format.html { render :new }
+          format.json { render json: @profile.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -72,8 +72,10 @@ class Owner::ProfilesController < OwnerController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def profile_params
-      params.permit(:id, :name, :description, :cpf, :services, :mobile, :zipcode, :address, :number, :complement, :neighborhood, :city, :state,
-        owner_attributes: [:email, :mon, :tue, :wed, :thu, :fri, :sat, :sun, :start, :end],
-        owner: [:email, :mon, :tue, :wed, :thu, :fri, :sat, :sun, :start, :end])
+      params.permit(:id, :name, :description, :cpf, :services, :mobile, :zipcode, :address, :number, :complement, :neighborhood, :city, :state)
+    end
+
+    def owner_params
+      params.require(:owner).permit(:mon, :tue, :wed, :thu, :fri, :sat, :sun, :start, :end)
     end
 end
