@@ -29,7 +29,7 @@ class Owner::ProfilesController < OwnerController
     respond_to do |format|
       ActiveRecord::Base.transaction do
         if @profile.update(profile_params)
-          current_owner.update(owner_params.tap {|p| p[profile_id: @profile.id]})
+          current_owner.update(owner_params.tap {|p| p[profile_id] = @profile.id})
           format.html { redirect_to @profile, notice: 'Profile was successfully created.' }
           format.json { render :show, status: :created, location: [:owner, @profile] }
         else
