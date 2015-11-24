@@ -25,13 +25,13 @@ class Owner::ProfilesController < OwnerController
   # POST /profiles.json
   def create
     @profile = Profile.find_or_initialize_by(id: current_owner.profile_id)
-
+    status = @profile.persisted? ? :created : :ok
     respond_to do |format|
       ActiveRecord::Base.transaction do
         if @profile.update(profile_params)
           current_owner.update(owner_params.tap {|p| p[:profile_id] = @profile.id})
           format.html { redirect_to @profile, notice: 'Profile was successfully created.' }
-          format.json { render :show, status: :created, location: [:owner, @profile] }
+          format.json { render :show, status: status, location: [:owner, @profile] }
         else
           format.html { render :new }
           format.json { render json: @profile.errors, status: :unprocessable_entity }
