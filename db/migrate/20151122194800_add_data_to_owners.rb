@@ -9,5 +9,6 @@ class AddDataToOwners < ActiveRecord::Migration
     add_column :owners, :sun, :boolean, default: false
     add_column :owners, :start, :time
     add_column :owners, :end, :time
+    add_column :owners, :time_per_client, :time
   end
 end

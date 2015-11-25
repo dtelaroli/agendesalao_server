@@ -76,6 +76,6 @@ class Owner::ProfilesController < OwnerController
     end
 
     def owner_params
-      params.require(:owner).permit(:mon, :tue, :wed, :thu, :fri, :sat, :sun, :start, :end)
+      params.require(:owner).permit(:mon, :tue, :wed, :thu, :fri, :sat, :sun, :start, :end, :time_per_client)
     end
 end
