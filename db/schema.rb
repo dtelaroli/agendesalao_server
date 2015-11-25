@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20151122194800) do
     t.boolean  "sun",                    default: false
     t.time     "start"
     t.time     "end"
+    t.time     "time_per_client"
   end
 
   add_index "owners", ["email"], name: "index_owners_on_email"
