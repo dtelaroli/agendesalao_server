@@ -1,11 +1,9 @@
 Rails.application.routes.draw do
 
-  resources :events
-  resources :events
   mount_devise_token_auth_for 'Owner', at: 'owner/auth'
 
   namespace :owner do
-    resources :schedules
+    resources :events
     resources :profiles
   end
 

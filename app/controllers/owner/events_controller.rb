@@ -4,7 +4,7 @@ class Owner::EventsController < OwnerController
   # GET /events
   # GET /events.json
   def index
-    @events = Event.all
+    @events = current_owner.events
   end
 
   # GET /events/1
@@ -69,7 +69,7 @@ class Owner::EventsController < OwnerController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:owner_id, :user_id, :email, :tel, :invite, :event_date, :estimated_time)
+      params.require(:event).permit(:owner_id, :user_id, :name, :client, :invite, :start, :estimated_time)
         .tap{|e| e[:owner] = current_owner }
     end
 end

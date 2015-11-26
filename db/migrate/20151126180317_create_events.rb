@@ -3,10 +3,10 @@ class CreateEvents < ActiveRecord::Migration
     create_table :events do |t|
       t.references :owner, index: true, foreign_key: true
       t.references :user, index: true, foreign_key: true
-      t.string :email
-      t.string :tel
+      t.string :name
+      t.string :client
       t.string :invite
-      t.datetime :event_date
+      t.datetime :start
       t.time :estimated_time
 
       t.timestamps null: false

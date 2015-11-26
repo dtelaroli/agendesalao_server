@@ -16,10 +16,10 @@ ActiveRecord::Schema.define(version: 20151126180317) do
   create_table "events", force: :cascade do |t|
     t.integer  "owner_id"
     t.integer  "user_id"
-    t.string   "email"
-    t.string   "tel"
+    t.string   "name"
+    t.string   "client"
     t.string   "invite"
-    t.datetime "event_date"
+    t.datetime "start"
     t.time     "estimated_time"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
