@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  owner_id: 
+  user_id: 
+  email: MyString
+  tel: MyString
+  invite: MyString
+  event_date: 2015-11-26 16:03:17
+  estimated_time: 2015-11-26 16:03:17
+
+two:
+  owner_id: 
+  user_id: 
+  email: MyString
+  tel: MyString
+  invite: MyString
+  event_date: 2015-11-26 16:03:17
+  estimated_time: 2015-11-26 16:03:17

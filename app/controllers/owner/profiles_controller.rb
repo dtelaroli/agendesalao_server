@@ -25,7 +25,7 @@ class Owner::ProfilesController < OwnerController
   # POST /profiles.json
   def create
     @profile = Profile.find_or_initialize_by(id: current_owner.profile_id)
-    status = @profile.persisted? ? :created : :ok
+    status = @profile.persisted? ? :ok : :created
     respond_to do |format|
       ActiveRecord::Base.transaction do
         if @profile.update(profile_params)
@@ -67,7 +67,7 @@ class Owner::ProfilesController < OwnerController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_profile
-      @profile = Profile.find(current_owner.profile_id || params[:id])
+      @profile = current_owner.profile
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
