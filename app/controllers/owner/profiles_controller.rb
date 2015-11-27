@@ -1,28 +1,13 @@
 class Owner::ProfilesController < OwnerController
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
 
-  # GET /profiles
-  # GET /profiles.json
   def index
     @profiles = Profile.where('lower(name) like ?', "%#{params[:q].to_s.downcase}%")
   end
 
-  # GET /profiles/1
-  # GET /profiles/1.json
   def show
   end
 
-  # GET /profiles/new
-  def new
-    @profile = Profile.new
-  end
-
-  # GET /profiles/1/edit
-  def edit
-  end
-
-  # POST /profiles
-  # POST /profiles.json
   def create
     @profile = Profile.find_or_initialize_by(id: current_owner.profile_id)
     status = @profile.persisted? ? :ok : :created
@@ -40,8 +25,6 @@ class Owner::ProfilesController < OwnerController
     end
   end
 
-  # PATCH/PUT /profiles/1
-  # PATCH/PUT /profiles/1.json
   def update
     respond_to do |format|
       if @profile.update(profile_params)
@@ -54,8 +37,6 @@ class Owner::ProfilesController < OwnerController
     end
   end
 
-  # DELETE /profiles/1
-  # DELETE /profiles/1.json
   def destroy
     @profile.destroy
     respond_to do |format|
