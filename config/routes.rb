@@ -7,8 +7,13 @@ Rails.application.routes.draw do
     resources :profiles
   end
 
+  mount_devise_token_auth_for 'Client', at: 'client/auth'
 
-  mount_devise_token_auth_for 'User', at: 'auth'
+  namespace :client do
+    resources :events
+    resources :profiles
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -1,8 +1,8 @@
-class Owner::EventsController < OwnerController
+class Client::EventsController < ClientController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
 
   def index
-    @events = current_owner.events
+    @events = current_client.events
   end
 
   def show
@@ -13,7 +13,7 @@ class Owner::EventsController < OwnerController
 
     respond_to do |format|
       if @event.save
-        format.json { render :show, status: :created, location: [:owner, @event] }
+        format.json { render :show, status: :created, location: [:client, @event] }
       else
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
@@ -23,7 +23,7 @@ class Owner::EventsController < OwnerController
   def update
     respond_to do |format|
       if @event.update(event_params)
-        format.json { render :show, status: :ok, location: [:owner, @event] }
+        format.json { render :show, status: :ok, location: [:client, @event] }
       else
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
@@ -45,7 +45,7 @@ class Owner::EventsController < OwnerController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:owner_id, :user_id, :name, :client, :invite, :start, :estimated_time)
-        .tap{|e| e[:owner] = current_owner }
+      params.require(:event).permit(:owner_id, :client_id, :name, :client, :invite, :start, :estimated_time)
+        .tap{|e| e[:client] = current_client }
     end
 end
