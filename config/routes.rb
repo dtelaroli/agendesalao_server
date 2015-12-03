@@ -1,17 +1,18 @@
 Rails.application.routes.draw do
 
   mount_devise_token_auth_for 'Owner', at: 'owner/auth'
-
   namespace :owner do
     resources :events
     resources :profiles
   end
 
   mount_devise_token_auth_for 'Client', at: 'client/auth'
-
   namespace :client do
-    resources :events
+    resources :events do
+      get 'history', on: :collection
+    end
     resources :profiles
+    resources :owners, only: :show
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

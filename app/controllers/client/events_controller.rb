@@ -2,7 +2,15 @@ class Client::EventsController < ClientController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
 
   def index
-    @events = current_client.events
+    @events = current_client.events.where('start > ?', Time.now)
+  end
+
+  def history
+    @events = current_client.events.where('start < ?', Time.now)
+  end
+  
+  def owner
+    @events = Event.where(owner_id: params[:id])
   end
 
   def show
