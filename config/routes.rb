@@ -12,7 +12,7 @@ Rails.application.routes.draw do
       get 'history', on: :collection
     end
     resources :profiles
-    resources :owners, only: :show
+    resources :owners, only: [:index, :show]
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
