@@ -48,12 +48,12 @@ class Client::EventsController < ClientController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event
-      @event = current_owner.events.find(params[:id])
+      @event = current_client.events.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:owner_id, :client_id, :name, :client, :invite, :start, :estimated_time)
+      params.require(:event).permit(:owner_id, :client_id, :name, :client, :invite, :start, :estimated_time, :confirmed)
         .tap{|e| e[:client] = current_client }
     end
 end

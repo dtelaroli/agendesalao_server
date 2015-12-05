@@ -8,6 +8,7 @@ class CreateEvents < ActiveRecord::Migration
       t.string :invite
       t.datetime :start
       t.time :estimated_time
+      t.boolean :confirmed, default: false
 
       t.timestamps null: false
     end

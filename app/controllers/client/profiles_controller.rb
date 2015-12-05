@@ -48,6 +48,6 @@ class Client::ProfilesController < ClientController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def profile_params
-      params.permit(:id, :name, :description, :cpf, :services, :mobile, :zipcode, :address, :number, :complement, :neighborhood, :city, :state)
+      params.require(:profile).permit(:id, :name, :description, :cpf, :services, :mobile, :zipcode, :address, :number, :complement, :neighborhood, :city, :state)
     end
 end

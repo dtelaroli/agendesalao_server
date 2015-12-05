@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20151126180317) do
     t.string   "invite"
     t.datetime "start"
     t.time     "estimated_time"
+    t.boolean  "confirmed"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end
