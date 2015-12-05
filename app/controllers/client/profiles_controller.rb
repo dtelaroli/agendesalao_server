@@ -14,7 +14,7 @@ class Client::ProfilesController < ClientController
       @profile = Profile.new(profile_params)
       respond_to do |format|
         ActiveRecord::Base.transaction do
-          if @profile.update(profile_params)
+          if @profile.save
             current_client.update(profile_id: @profile.id)
             format.json { render :show, status: status, location: [:owner, @profile] }
           else
