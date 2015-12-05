@@ -9,7 +9,7 @@ class Owner::ProfilesController < OwnerController
   end
 
   def create
-    if Profile.find_or_initialize_by(id: current_owner.profile_id).nil?
+    if Profile.not_exists?(current_owner.profile_id)
       @profile = Profile.new(profile_params)
       respond_to do |format|
         ActiveRecord::Base.transaction do
