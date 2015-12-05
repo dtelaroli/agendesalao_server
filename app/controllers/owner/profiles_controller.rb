@@ -25,10 +25,13 @@ class Owner::ProfilesController < OwnerController
 
   def update
     respond_to do |format|
-      if @profile.update(profile_params)
-        format.json { render :show, status: :ok, location: [:owner, @profile] }
-      else
-        format.json { render json: @profile.errors, status: :unprocessable_entity }
+      ActiveRecord::Base.transaction do
+        if @profile.update(profile_params)
+          current_owner.update(owner_params)
+          format.json { render :show, status: :ok, location: [:owner, @profile] }
+        else
+          format.json { render json: @profile.errors, status: :unprocessable_entity }
+        end
       end
     end
   end

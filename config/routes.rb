@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   mount_devise_token_auth_for 'Owner', at: 'owner/auth'
   namespace :owner do
     resources :events
-    resources :profiles
+    resources :profiles, except: [:destroy]
   end
 
   mount_devise_token_auth_for 'Client', at: 'client/auth'
@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     resources :events do
       get 'history', on: :collection
     end
-    resources :profiles
+    resources :profiles, except: [:destroy]
     resources :owners, only: [:index, :show]
   end
 
