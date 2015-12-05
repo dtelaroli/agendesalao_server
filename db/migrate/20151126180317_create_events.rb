@@ -4,7 +4,7 @@ class CreateEvents < ActiveRecord::Migration
       t.references :owner, index: true, foreign_key: true
       t.references :client, index: true, foreign_key: true
       t.string :name
-      t.string :client
+      t.string :email_or_mob
       t.string :invite
       t.datetime :start
       t.time :estimated_time

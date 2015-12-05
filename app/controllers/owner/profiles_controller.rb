@@ -9,17 +9,21 @@ class Owner::ProfilesController < OwnerController
   end
 
   def create
-    @profile = Profile.find_or_initialize_by(id: current_owner.profile_id)
-    status = @profile.persisted? ? :ok : :created
-    respond_to do |format|
-      ActiveRecord::Base.transaction do
-        if @profile.update(profile_params)
-          current_owner.update(owner_params.tap {|p| p[:profile_id] = @profile.id})
-          format.json { render :show, status: status, location: [:owner, @profile] }
-        else
-          format.json { render json: @profile.errors, status: :unprocessable_entity }
+    @profile = Profile.where('id = ? or cpf = ? or mobile = ?', current_owner.profile_id, profile_params[:cpf], profile_params[:mobile]).first
+    if @profile.nil?
+      @profile = Profile.new(profile_params)
+      respond_to do |format|
+        ActiveRecord::Base.transaction do
+          if @profile.save
+            current_owner.update(owner_params.tap {|p| p[:profile_id] = @profile.id})
+            format.json { render :show, status: status, location: [:owner, @profile] }
+          else
+            format.json { render json: @profile.errors, status: :unprocessable_entity }
+          end
         end
       end
+    else
+      update
     end
   end
 
@@ -51,7 +55,7 @@ class Owner::ProfilesController < OwnerController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def profile_params
-      params.require(:profile).permit(:id, :name, :description, :cpf, :services, :mobile, :zipcode, :address, :number, :complement, :neighborhood, :city, :state)
+      params.require(:profile).permit(:id, :name, :description, :cpf, :services, :mobile, :zipcode, :address, :number, :complement, :neighborhood, :city, :state, :profile)
     end
 
     def owner_params

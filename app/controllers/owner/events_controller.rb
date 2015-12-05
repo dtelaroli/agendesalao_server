@@ -45,7 +45,7 @@ class Owner::EventsController < OwnerController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:owner_id, :client_id, :name, :client, :invite, :start, :estimated_time)
+      params.require(:event).permit(:owner_id, :client_id, :name, :email_or_mob, :invite, :start, :estimated_time)
         .tap{|e| e[:owner] = current_owner }
     end
 end

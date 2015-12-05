@@ -12,6 +12,7 @@ class CreateProfiles < ActiveRecord::Migration
       t.string :neighborhood
       t.string :city
       t.string :state
+      t.boolean :private, null: false, default: false
 
       t.timestamps null: false
     end

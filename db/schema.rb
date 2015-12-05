@@ -48,13 +48,13 @@ ActiveRecord::Schema.define(version: 20151126180317) do
     t.integer  "owner_id"
     t.integer  "client_id"
     t.string   "name"
-    t.string   "client"
+    t.string   "email_or_mob"
     t.string   "invite"
     t.datetime "start"
     t.time     "estimated_time"
-    t.boolean  "confirmed"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.boolean  "confirmed",      default: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
   end
 
   add_index "events", ["client_id"], name: "index_events_on_client_id"
@@ -84,13 +84,13 @@ ActiveRecord::Schema.define(version: 20151126180317) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "profile_id"
-    t.boolean  "mon",                    default: false
-    t.boolean  "tue",                    default: false
-    t.boolean  "wed",                    default: false
-    t.boolean  "thu",                    default: false
-    t.boolean  "fri",                    default: false
-    t.boolean  "sat",                    default: false
-    t.boolean  "sun",                    default: false
+    t.boolean  "mon",                    default: false,   null: false
+    t.boolean  "tue",                    default: false,   null: false
+    t.boolean  "wed",                    default: false,   null: false
+    t.boolean  "thu",                    default: false,   null: false
+    t.boolean  "fri",                    default: false,   null: false
+    t.boolean  "sat",                    default: false,   null: false
+    t.boolean  "sun",                    default: false,   null: false
     t.time     "start"
     t.time     "end"
     t.time     "time_per_client"
@@ -113,8 +113,9 @@ ActiveRecord::Schema.define(version: 20151126180317) do
     t.string   "neighborhood"
     t.string   "city"
     t.string   "state"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.boolean  "private",      default: false, null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
 end

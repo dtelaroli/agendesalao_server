@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     resources :events do
       get 'history', on: :collection
     end
-    resources :profiles, except: [:destroy]
+    resources :profiles
     resources :owners, only: [:index, :show]
   end
 

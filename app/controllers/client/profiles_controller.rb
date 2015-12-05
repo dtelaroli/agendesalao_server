@@ -9,17 +9,21 @@ class Client::ProfilesController < ClientController
   end
 
   def create
-    @profile = Profile.find_or_initialize_by(id: current_client.profile_id)
-    status = @profile.persisted? ? :ok : :created
-    respond_to do |format|
-      ActiveRecord::Base.transaction do
-        if @profile.update(profile_params)
-          current_client.update(profile_id: @profile.id)
-          format.json { render :show, status: status, location: [:client, @profile] }
-        else
-          format.json { render json: @profile.errors, status: :unprocessable_entity }
+    @profile = Profile.where('id = ? or cpf = ? or mobile = ?', current_client.profile_id, profile_params[:cpf], profile_params[:mobile]).first
+    if @profile.nil?
+      @profile = Profile.new(profile_params)
+      respond_to do |format|
+        ActiveRecord::Base.transaction do
+          if @profile.update(profile_params)
+            current_client.update(profile_id: @profile.id)
+            format.json { render :show, status: status, location: [:owner, @profile] }
+          else
+            format.json { render json: @profile.errors, status: :unprocessable_entity }
+          end
         end
       end
+    else
+      update
     end
   end
 
@@ -48,6 +52,6 @@ class Client::ProfilesController < ClientController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def profile_params
-      params.require(:profile).permit(:id, :name, :description, :cpf, :services, :mobile, :zipcode, :address, :number, :complement, :neighborhood, :city, :state)
+      params.require(:profile).permit(:id, :name, :description, :cpf, :services, :mobile, :zipcode, :address, :number, :complement, :neighborhood, :city, :state, :private)
     end
 end

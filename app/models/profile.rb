@@ -4,4 +4,5 @@ class Profile < ActiveRecord::Base
 
   validates :name, :description, :cpf, :mobile, :zipcode, :address, 
     :number, :neighborhood, :city, :state, presence: true
+
 end

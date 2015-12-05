@@ -53,7 +53,11 @@ class Client::EventsController < ClientController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:owner_id, :client_id, :name, :client, :invite, :start, :estimated_time, :confirmed)
-        .tap{|e| e[:client] = current_client }
+      params.require(:event).permit(:owner_id, :client_id, :name, :email_or_mob, :invite, :start, :estimated_time, :confirmed)
+        .tap{|e| 
+          e[:client] = current_client 
+          e[:email_or_mob] = current_client.profile.mobile
+          e[:name] = current_client.profile.name
+        }
     end
 end
