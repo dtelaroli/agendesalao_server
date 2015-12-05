@@ -1,7 +1,6 @@
 class Client::OwnersController < ClientController
   def index
-    q = "%#{params[:q].to_s.downcase}%"
-    @owners = Owner.joins(:profile).where('lower(owners.name) like ? or lower(profiles.name) like ?', q, q)
+    @owners = Owner.joins(:profile).where('lower(owners.name) like :q or lower(profiles.name) like :q', {q: "%#{params[:q].to_s.downcase}%"})
   end
 
   def show
