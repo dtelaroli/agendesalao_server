@@ -56,8 +56,12 @@ class Client::EventsController < ClientController
       params.require(:event).permit(:owner_id, :client_id, :name, :email_or_mob, :invite, :start, :estimated_time, :confirmed)
         .tap{|e| 
           e[:client] = current_client 
-          e[:email_or_mob] = current_client.profile.mobile || current_client.email
-          e[:name] = current_client.profile.name || current_client.name
+          e[:email_or_mob] = current_profile.mobile || current_client.email
+          e[:name] = current_profile.name || current_client.name
         }
+    end
+
+    def current_profile
+      current_client.profile || Profile.new
     end
 end
