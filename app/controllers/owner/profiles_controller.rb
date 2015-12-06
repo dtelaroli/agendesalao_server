@@ -9,7 +9,7 @@ class Owner::ProfilesController < OwnerController
   end
 
   def create
-    unless Profile.exists?(current_owner.profile_id)
+    if Profile.exists?(current_owner.profile_id)
       update
     else
       @profile = Profile.new(profile_params)
