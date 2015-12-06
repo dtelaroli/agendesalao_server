@@ -9,7 +9,9 @@ class Owner::ProfilesController < OwnerController
   end
 
   def create
-    if Profile.not_exists?(current_owner.profile_id)
+    unless Profile.exists?(current_owner.profile_id)
+      update
+    else
       @profile = Profile.new(profile_params)
       respond_to do |format|
         ActiveRecord::Base.transaction do
@@ -21,8 +23,6 @@ class Owner::ProfilesController < OwnerController
           end
         end
       end
-    else
-      update
     end
   end
 
